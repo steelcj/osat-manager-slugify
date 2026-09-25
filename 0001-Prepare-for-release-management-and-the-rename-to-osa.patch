@@ -1,0 +1,102 @@
+From e591549b788925d254701bef79ab97219a7c1a1d Mon Sep 17 00:00:00 2001
+From: Christopher Steel <steelcj@users.noreply.github.com>
+Date: Fri, 25 Sep 2026 20:57:14 +0000
+Subject: [PATCH] Prepare for release management and the rename to
+ osat-manager-slugify
+
+VERSION set to the last released 1.0.0 so cut-release.py minor lands on
+1.1.0; the 1.1.0 entries move under Unreleased, Planned items leave the
+changelog for ROADMAP.md, and README clone URLs point at the new name.
+---
+ CHANGELOG.md | 21 +++++----------------
+ README.md    | 10 +++++-----
+ VERSION      |  2 +-
+ 3 files changed, 11 insertions(+), 22 deletions(-)
+
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index e9367d6..1e61ff3 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -2,35 +2,24 @@
+ 
+ All notable changes to this project will be documented here.
+ 
+-Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+-
+----
++Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/). Planned work lives in ROADMAP.md.
+ 
+ ## [Unreleased]
+ 
+-### Planned
+-- Fix: backtick and special character handling in bash wrapper
+-- Feat: Markdown title extraction (`slug file.md`)
+-- Feat: Sidecar metadata filename generation (`--sidecar`)
+-- Feat: Multilingual stopword presets
+-
+----
+-
+-## [1.1.0] - 2026-09-25
+-
+ ### Changed
++- Repository renamed from `tool-python-slugify` to `osat-manager-slugify`
+ - Install layout follows OSAT Fluent: versioned app and venv under `~/.local/share/slug-tool/<version>/`, wrapper at `~/.local/bin/slug`, config at `~/.config/slug-tool/config.yml` (Windows: `%LOCALAPPDATA%` and `%APPDATA%`)
+ - `slugify_cli.py` reads the per-user config, falling back to `config.yml` beside the script
+ 
+ ### Added
+ - `install-slug.py` manager with `--install`, `--switch`, `--status`, `--remove` and `--version`
+-- Windows wrapper template (`scripts/windows/slug-wrapper.cmd`), untested on real hardware
+-- `VERSION` file
++- Windows wrapper template (`scripts/windows/slug-wrapper.cmd`)
++- `VERSION` file, and release management through the shared sat-doc-automa ceremony
+ 
+ ### Removed
+ - Hard-coded `~/bin` wrapper (`scripts/nix/slug`), replaced by the rendered `scripts/nix/slug-wrapper`
+ 
+-## [1.0.0] — 2026-03-16
++## [1.0.0] - 2026-03-16
+ 
+ ### Added
+ - CLI tool `slug` with Unix-style argument and stdin support
+diff --git a/README.md b/README.md
+index 29c9712..c9ab132 100644
+--- a/README.md
++++ b/README.md
+@@ -1,4 +1,4 @@
+-# tool-python-slugify
++# osat-manager-slugify
+ 
+ ## Description
+ 
+@@ -38,8 +38,8 @@ Requirements: Python 3.8 or later to run the manager, with working `venv` and `p
+ ### Linux and macOS
+ 
+ ```bash
+-git clone https://github.com/steelcj/tool-python-slugify.git
+-cd tool-python-slugify
++git clone https://github.com/steelcj/osat-manager-slugify.git
++cd osat-manager-slugify
+ python3 install-slug.py --install
+ ```
+ 
+@@ -48,8 +48,8 @@ Make sure `~/.local/bin` is on your `PATH`. The manager warns if it is not, or i
+ ### Windows
+ 
+ ```powershell
+-git clone https://github.com/steelcj/tool-python-slugify.git
+-cd tool-python-slugify
++git clone https://github.com/steelcj/osat-manager-slugify.git
++cd osat-manager-slugify
+ python install-slug.py --install
+ ```
+ 
+diff --git a/VERSION b/VERSION
+index 9084fa2..3eefcb9 100644
+--- a/VERSION
++++ b/VERSION
+@@ -1 +1 @@
+-1.1.0
++1.0.0
+-- 
+2.43.0
+

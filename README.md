@@ -35,6 +35,12 @@ The tool installs into user-space with `install-slug.py`, following the same lay
 
 Requirements: Python 3.8 or later to run the manager, with working `venv` and `pip`. The venv is built from whichever interpreter runs the manager, so to use a python-tool install, run it with that interpreter (for example `python3.12`).
 
+### Requirements
+
+```bash
+apt install python3.12-venv
+```
+
 ### Linux and macOS
 
 ```bash
