@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import sys
 import argparse
 import yaml
@@ -21,17 +22,40 @@ DEFAULT_CONFIG = {
 
 
 # ------------------------------------------------------------------------------
-# Load config from script directory
+# Locate the per-user config file
+# ------------------------------------------------------------------------------
+
+def user_config_path():
+    """Per-user config written by install-slug.py.
+
+    Linux/macOS: $XDG_CONFIG_HOME/slug-tool/config.yml (default ~/.config)
+    Windows:     %APPDATA%\\slug-tool\\config.yml
+    """
+
+    if os.name == "nt":
+        base = Path(os.environ.get("APPDATA", Path.home() / "AppData" / "Roaming"))
+    else:
+        base = Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config"))
+
+    return base / "slug-tool" / "config.yml"
+
+
+# ------------------------------------------------------------------------------
+# Load default config: per-user file, else config.yml beside this script
+# (the latter keeps running straight from a checkout working)
 # ------------------------------------------------------------------------------
 
 def load_script_config():
 
-    script_dir = Path(__file__).resolve().parent
-    config_file = script_dir / "config.yml"
+    candidates = [
+        user_config_path(),
+        Path(__file__).resolve().parent / "config.yml",
+    ]
 
-    if config_file.exists():
-        with open(config_file, "r", encoding="utf-8") as f:
-            return yaml.safe_load(f) or {}
+    for config_file in candidates:
+        if config_file.exists():
+            with open(config_file, "r", encoding="utf-8") as f:
+                return yaml.safe_load(f) or {}
 
     return {}
 

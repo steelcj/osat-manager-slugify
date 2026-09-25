@@ -29,45 +29,51 @@ Unix-style pipelines.
 
 ---
 
-## Installation via github
+## Installation
 
-### Nix's
+The tool installs into user-space with `install-slug.py`, following the same layout as the OSAT Fluent python-tool. No root or Administrator privilege is needed, and the manager refuses to run with it.
 
-Fast install using slugify 8.0.4
+Requirements: Python 3.8 or later to run the manager, with working `venv` and `pip`. The venv is built from whichever interpreter runs the manager, so to use a python-tool install, run it with that interpreter (for example `python3.12`).
 
-```bash
-cd ~/bin
-git clone https://github.com/steelcj/tool-python-slugify.git slugify-tool
-```
-
-Install bash wrapper to `~/bin`
+### Linux and macOS
 
 ```bash
-cp slugify-tool/scripts/nix/slug .
-chmod +x slug
+git clone https://github.com/steelcj/tool-python-slugify.git
+cd tool-python-slugify
+python3 install-slug.py --install
 ```
+
+Make sure `~/.local/bin` is on your `PATH`. The manager warns if it is not, or if another `slug` earlier on `PATH` shadows the new one.
+
+### Windows
+
+```powershell
+git clone https://github.com/steelcj/tool-python-slugify.git
+cd tool-python-slugify
+python install-slug.py --install
+```
+
+The wrapper lands in `%LOCALAPPDATA%\Programs`, which is not on `PATH` by default. Add it to your user `PATH`, then open a new terminal. Windows support is untested on real hardware so far.
+
+### Managing versions
+
+```
+install-slug.py --install          Install this checkout's version and activate it
+install-slug.py --switch VERSION   Point the wrapper at another installed version
+install-slug.py --status           Show installed and active versions
+install-slug.py --remove VERSION   Remove an installed, inactive version
+install-slug.py --version          Show the manager's version
+```
+
+### Upgrading from 1.0.x
+
+Earlier versions installed to `~/bin/slug` and `~/bin/slugify-tool`. After installing 1.1.0 and confirming `slug` works, remove the old install:
 
 ```bash
-mkdir -p ~/bin/slugify-tool/.venvs/slugify/8.0.4
+rm -f ~/bin/slug && rm -rf ~/bin/slugify-tool
 ```
 
-Next we create the tools virtual environment or venv
-
-    python3 -m venv --prompt slugify-8.0.4 ~/bin/slugify-tool/.venvs/slugify/8.0.4
-
-Activate it.
-
-    source ~/bin/slugify-tool/.venvs/slugify/8.0.4/bin/activate
-
-Your prompt should now reflect the activated python venv for the slugify tool
-
-    (slugify-8.0.4)
-
-Install requirements
-
-```bash
-pip install -r slugify-tool/requirements.txt
-```
+If you customised `~/bin/slugify-tool/config.yml`, copy it to `~/.config/slug-tool/config.yml` first.
 
 ## Detailed Installation, Usage and Configuration
 
@@ -113,11 +119,7 @@ cat title.txt | slug
 
 ## Configuration
 
-Default behavior is controlled by:
-
-```
-config.yml
-```
+Default behavior is controlled by the per-user `config.yml` (see Installed Layout).
 
 Example configuration:
 
@@ -160,20 +162,27 @@ reference-documentation-api
 
 ---
 
-## Project Structure
+## Installed Layout
 
-Example layout:
+Linux and macOS:
 
 ```
-~/bin/
-├── slug
-└── slugify-tool/
-    ├── config.yml
-    ├── slugify_cli.py
-    └── __pycache__/
+~/.local/share/slug-tool/<version>/slugify_cli.py
+~/.local/share/slug-tool/<version>/.venv/
+~/.local/bin/slug                              (wrapper)
+~/.config/slug-tool/config.yml                 (seeded once, never overwritten)
 ```
 
----
+Windows:
+
+```
+%LOCALAPPDATA%\slug-tool\<version>\slugify_cli.py
+%LOCALAPPDATA%\slug-tool\<version>\.venv\
+%LOCALAPPDATA%\Programs\slug.cmd                (wrapper)
+%APPDATA%\slug-tool\config.yml
+```
+
+`XDG_DATA_HOME`, `XDG_BIN_HOME` and `XDG_CONFIG_HOME` are honoured when set. Config precedence is built-in defaults, then the per-user `config.yml`, then any file passed with `--config`.
 
 ## Future Improvements
 

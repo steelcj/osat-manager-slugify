@@ -16,6 +16,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.1.0] - 2026-09-25
+
+### Changed
+- Install layout follows OSAT Fluent: versioned app and venv under `~/.local/share/slug-tool/<version>/`, wrapper at `~/.local/bin/slug`, config at `~/.config/slug-tool/config.yml` (Windows: `%LOCALAPPDATA%` and `%APPDATA%`)
+- `slugify_cli.py` reads the per-user config, falling back to `config.yml` beside the script
+
+### Added
+- `install-slug.py` manager with `--install`, `--switch`, `--status`, `--remove` and `--version`
+- Windows wrapper template (`scripts/windows/slug-wrapper.cmd`), untested on real hardware
+- `VERSION` file
+
+### Removed
+- Hard-coded `~/bin` wrapper (`scripts/nix/slug`), replaced by the rendered `scripts/nix/slug-wrapper`
+
 ## [1.0.0] — 2026-03-16
 
 ### Added

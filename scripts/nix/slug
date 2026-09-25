@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-SCRIPT_DIR="$HOME/bin/slugify-tool"
-
-exec "$SCRIPT_DIR/.venvs/slugify/8.0.4/bin/python" \
-     "$SCRIPT_DIR/slugify_cli.py" "$@"
