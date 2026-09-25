@@ -6,6 +6,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/). Planned
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-09-25
+
 ### Changed
 - Repository renamed from `tool-python-slugify` to `osat-manager-slugify`
 - Install layout follows OSAT Fluent: versioned app and venv under `~/.local/share/slug-tool/<version>/`, wrapper at `~/.local/bin/slug`, config at `~/.config/slug-tool/config.yml` (Windows: `%LOCALAPPDATA%` and `%APPDATA%`)
