@@ -1,4 +1,4 @@
-# tool-python-slugify
+# osat-manager-slugify
 
 ## Description
 
@@ -44,8 +44,8 @@ apt install python3.12-venv
 ### Linux and macOS
 
 ```bash
-git clone https://github.com/steelcj/tool-python-slugify.git
-cd tool-python-slugify
+git clone https://github.com/steelcj/osat-manager-slugify.git
+cd osat-manager-slugify
 python3 install-slug.py --install
 ```
 
@@ -54,8 +54,8 @@ Make sure `~/.local/bin` is on your `PATH`. The manager warns if it is not, or i
 ### Windows
 
 ```powershell
-git clone https://github.com/steelcj/tool-python-slugify.git
-cd tool-python-slugify
+git clone https://github.com/steelcj/osat-manager-slugify.git
+cd osat-manager-slugify
 python install-slug.py --install
 ```
 
